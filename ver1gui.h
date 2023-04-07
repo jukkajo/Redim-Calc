@@ -1,6 +1,7 @@
 #ifndef VER1GUI_H
 #define VER1GUI_H
 
+void validateInputsCaller(QList<QPair<QString, QString>> inputList);
 // 04.04.2023
 // Jukka J
 // GUI for Basic LOX-Ethanol rocket engine combustion chamber and nozzle dimension calculator.
@@ -20,11 +21,13 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <QtCore/QObject>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
-{
+{  
+
 public:
     QWidget *centralwidget;
     QTabWidget *tabWidget;
@@ -109,6 +112,7 @@ public:
     QWidget *tab_4;
     QStatusBar *statusbar;
 
+    
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
@@ -804,15 +808,32 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        
+        //QObject::connect(pushButton, &QPushButton::clicked, &validateInputsCaller);
+        QObject::connect(pushButton, &QPushButton::clicked, [&]() {
+            QList<QPair<QString, QString>> inputList;
+            inputList.append(qMakePair(QString("lineEdit_44"), lineEdit_44->text()));
+            inputList.append(qMakePair(QString("lineEdit_45"), lineEdit_45->text()));
+            inputList.append(qMakePair(QString("lineEdit_46"), lineEdit_46->text()));
+            inputList.append(qMakePair(QString("lineEdit_47"), lineEdit_47->text()));
+            inputList.append(qMakePair(QString("lineEdit_48"), lineEdit_48->text()));
+            inputList.append(qMakePair(QString("lineEdit_49"), lineEdit_49->text()));
+            inputList.append(qMakePair(QString("lineEdit_50"), lineEdit_50->text()));
+            inputList.append(qMakePair(QString("lineEdit_51"), lineEdit_51->text()));
 
+
+            validateInputsCaller(inputList);
+        });
         retranslateUi(MainWindow);
 
         tabWidget->setCurrentIndex(0);
-
-
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi
 
+    void connectButtonToFunction(QPushButton *pushButton, void (*function)()) {
+        QObject::connect(pushButton, &QPushButton::clicked, function);
+    }
+    
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "NVel", nullptr));
