@@ -1,6 +1,10 @@
 #ifndef LABELTEXTS_H
 #define LABELTEXTS_H
 
+// @ Jukka J
+// Created: 06.04.2023
+// Last modification: 11.04.2023
+
 #include <QStringList>
 
 const QStringList PROPERTY_NAMES = {

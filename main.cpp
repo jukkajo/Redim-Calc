@@ -28,17 +28,21 @@ int loxBurningTempF = 0;
 float ethanolDensityF = 0.0;
 double ethanolSpecificHeatF = 0.0;
 int ethanolBurningTempF = 0;
-//
+// Variables for intermediate stages
+double adiabaticFlame = 0.0; 
+double burningPressure = 0.0;
+
+
 Ui_MainWindow *ui;
 
 // @ Jukka J
 // Created: 04.04.2023
-// Last modification:7.04.2023
+// Last modification:11.04.2023
 
 /* TODO:
 Store inputs Yes
 Store calculated values 
-
+Ask from user: 
 Create:
 Validation entity and prepared statements for validation messages yes
 Calculation entity
@@ -47,9 +51,16 @@ Optimization entity
 Action listeners for gen. value fills and calculate-event
 */
 
+void update() {
 
-void calculateAndUpdate() {
+}
 
+void calculate(double& crossSectionalAreaF, double& chamberLengthF, double& nozzleLengthF, double& nozzleThroatAreaF, double& nozzleExitAreaF, double& massFlowRateF, int& thrustF, int& chamberPressureF, float& loxDensityF, double& loxSpecificHeatF, int& loxBurningTempF, float& ethanolDensityF, double& ethanolSpecificHeatF, int& ethanolBurningTempF) {
+
+    // Generating values via calctools
+    crossSectionalAreaF = 
+    chamberLengthF =
+    nozzleLengthF =
 }
 
 /*
@@ -241,7 +252,7 @@ void validateInputs(QList<QPair<QString, QString>> inputList, double& crossSecti
      
     // All inputs are valid, proceed with calculation.
     // Call for calculation function, which calls update function
-    calculateAndUpdate();
+    calculate(double& crossSectionalAreaF, double& chamberLengthF, double& nozzleLengthF, double& nozzleThroatAreaF, double& nozzleExitAreaF, double& massFlowRateF, int& thrustF, int& chamberPressureF, float& loxDensityF, double& loxSpecificHeatF, int& loxBurningTempF, float& ethanolDensityF, double& ethanolSpecificHeatF, int& ethanolBurningTempF);
     std::cout << "End of func" << intStr << std::endl;
 }
 

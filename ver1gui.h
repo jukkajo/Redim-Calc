@@ -2,8 +2,11 @@
 #define VER1GUI_H
 
 void validateInputsCaller(QList<QPair<QString, QString>> inputList);
-// 04.04.2023
-// Jukka J
+
+// @ Jukka J
+// Created: 03.04.2023
+// Last modification: 11.04.2023
+
 // GUI for Basic LOX-Ethanol rocket engine combustion chamber and nozzle dimension calculator.
 
 #include <QtCore/QVariant>
