@@ -9,14 +9,15 @@
 
 const QStringList PROPERTY_NAMES = {
     "",
-    "Työntövoima / Thrust (Unit: Newton)",
-    "Kammiopaine / Chamber pressure (Unit: bar)",
-    "Tiheys / Density (Unit: kg/m^3)",
-    "Ominaislämpökapasiteetti / Specific heat (Unit: J/kg-K)",
-    "Palamislämpö / Burning temperature (Unit: Kelvin)",
-    "Tiheys / Density (Unit: kg/m^3)",
-    "Ominaislämpökapasiteetti / Specific heat (Unit: J/kg-K)",
-    "Palamislämpö / Burning temperature (Unit: Kelvin)"
+    "Thrust (Unit: Newton)",
+    "Chamber pressure (Unit: bar)",
+    
+    "Density of LOX (Unit: kg/m^3)",
+    "Specific heat of LOX (Unit: J/kg-K)",
+    "Burning temperature of LOX (Unit: Kelvin)",
+    "Density of ethanol(Unit: kg/m^3)",
+    "Specific heat of ethanol (Unit: J/kg-K)",
+    "Burning temperature of ethanol (Unit: Kelvin)"
 };
 
 #endif // LABELTEXTS_H

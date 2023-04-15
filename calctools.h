@@ -5,25 +5,15 @@
 
 // @ Jukka J
 // Created: 07.04.2023
-// Last modification: 11.04.2023
+// Last modification: 12.04.2023
+/* TODO: Create function/way to estimate real chamber temperature by acknowledgin heat losses etc. 
+& replacing (few) corresponding A_Flame values with estimated chamber temp */
+
 
 // Function to calculate temperature of adiabatic flame (via adiabatic flame temperature equation)
 double calculateAFlame(double T_oxygen, double C_p_oxygen, double T_ethanol, double C_p_ethanol) {
     double A_Flame = (T_oxygen * C_p_oxygen + T_ethanol * C_p_ethanol) / (C_p_oxygen + C_p_ethanol);
     return A_Flame;
-}
-
-// Function to calculate burning pressure (via isentropic expansion equation)
-double calculateBPressure(double P_c, double T_c, double A_Flame, double C_p_oxygen, double C_p_ethanol) {
-    double gamma = calculateGamma(C_p_oxygen, C_p_ethanol);
-    double B_p = P_c * pow((A_Flame / T_c), (gamma / (gamma - 1)));
-    return B_p;
-}
-
-// Function to calculate mass flow rate (via thrust equation and exhaust velocity equation)
-double calculateMFRate(double F, double C_e_v, double B_p, double A_t, double C_p) {
-    double M_f_r = F / (C_e_v * (B_p / C_p) * A_t);
-    return M_f_r;
 }
 
 // Function to calculate the specific heat ratio of the combustion products
@@ -36,14 +26,29 @@ double calculateGamma(double C_p_oxygen, double C_p_ethanol) {
     return Gamma_avg;
 }
 
+// Function to calculate burning pressure
+double calculateBPressure(double P_chamber, double T_chamber, double A_Flame, double C_p_oxygen, double C_p_ethanol) {
+    double gamma = calculateGamma(C_p_oxygen, C_p_ethanol);
+    double B_p = P_chamber * pow((A_Flame / T_chamber), (gamma / (gamma - 1)));
+    return B_p;
+}
+
+// Function to calculate mass flow rate (via thrust equation and exhaust velocity equation)
+double calculateMFRate(double F, double C_e_v, double B_p, double A_t, double C_p) {
+    double M_f_r = F / (C_e_v * (B_p / C_p) * A_t);
+    return M_f_r;
+}
+
 // Function to estimate the characteristic exhaust velocity
 double calculateEVelocity(double A_Flame, double gamma, double G_c, double P_chamber) {
-    double C_e_v = sqrt((2 * gamma / (gamma - 1)) * G_c * A_Flame * (1 - pow(P_chamber / P_c, (gamma - 1) / gamma)));
+    double C_e_v = sqrt((2 * gamma / (gamma - 1)) * G_c * A_Flame * (1 - pow(P_chamber / P_chamber, (gamma - 1) / gamma)));
     return C_e_v;
 }
 
 // Function to estimate gas constant for propellant mixture (G_c)
+// Parameters mostly from generivalues
 double calculateGasConstant(double ratio) {
+
     // Calculate the average molar mass of the mixture
     double M_mix = (ratio * M_LOX + M_ethanol) / (1 + ratio);
     // Calculate the gas constant for the mixture
@@ -59,7 +64,7 @@ double calculateTVelocity(double R_mix, double A_Flame, double P_exit, double ga
 
 // Function to calculate nozzle throat area
 double calculateNTArea(double M_f_r, double rho, double V_t) {
-    A_t = M_f_r / (rho * V_t);
+    double A_t = M_f_r / (rho * V_t);
     return A_t;
 }
 
@@ -91,8 +96,14 @@ double calculateNEArea(double F, double P_c, double C_e_v) {
 
 // Function to calculate nozzle length
 double calculateNLength(double A_e, double A_t, double R_mix, double A_Flame, double gamma, double P_c, double V_t) {
-    double L_n = (A_e / A_t - 1) * (R_mix * T_f / (gamma * P_c * V_t));
+    double L_n = (A_e / A_t - 1) * (R_mix * A_Flame / (gamma * P_c * V_t));
     return L_n;
+}
+
+// Function to calculate volume of the nozzle
+double calculateVNozzle(double A_t, double A_e, double L_n) {
+    double V_n = ((A_t + A_e)/2) * L_n;
+    return V_n;
 }
 
 // Function to calculate volume of the combustion chamber (also, V_c)
@@ -115,7 +126,7 @@ double calculateCSLength(double V_c, double D_c) {
 }
 
 // Function to estimate diameter of the combustion chamber
-double estimateCSDiameter(double V_c, double P_chamber, double R_mix, double C_e_v, double A_Flames, double F) {
+double estimateCSDiameter(double V_c, double P_chamber, double R_mix, double C_e_v, double A_Flame, double F) {
     // M_PI from cmath
     double D_c = sqrt((4 * V_c * P_chamber) / (M_PI * F * R_mix * A_Flame * C_e_v));
     return D_c;

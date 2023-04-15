@@ -111,4 +111,3 @@ QString listToString(const std::list<T>& lst) {
 }
 
 #endif // GENERICVALUES_H
-s
