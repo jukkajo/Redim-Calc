@@ -11,7 +11,6 @@ const QStringList PROPERTY_NAMES = {
     "",
     "Thrust (Unit: Newton)",
     "Chamber pressure (Unit: bar)",
-    
     "Density of LOX (Unit: kg/m^3)",
     "Specific heat of LOX (Unit: J/kg-K)",
     "Burning temperature of LOX (Unit: Kelvin)",

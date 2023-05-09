@@ -7,7 +7,7 @@ void fillGenericValues2();
 
 // @ Jukka J
 // Created: 03.04.2023
-// Last modification: 15.04.2023
+// Last modification: 07.05.2023
 
 // GUI for Basic LOX-Ethanol rocket engine combustion chamber and nozzle dimension calculator.
 
@@ -26,6 +26,8 @@ void fillGenericValues2();
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+
+
 
 
 QT_BEGIN_NAMESPACE
@@ -87,10 +89,6 @@ public:
     QCheckBox *checkBox_13;
     QLabel *label_124;
     QLabel *label_125;
-    QWidget *horizontalLayoutWidget_4;
-    QHBoxLayout *horizontalLayout_37;
-    QLabel *label_126;
-    QLCDNumber *lcdNumber_37;
     QPushButton *pushButton;
     QFrame *line_16;
     QFrame *line_3;
@@ -178,8 +176,25 @@ public:
     QFrame *line_49;
     QFrame *line_50;
     QFrame *line_51;
-    QWidget *tab_3;
+    QWidget *tab_5;
+    QWidget *horizontalLayoutWidget_4;
+    QHBoxLayout *horizontalLayout_38;
+    QLabel *label_127;
+    QLCDNumber *lcdNumber_43;
+    QWidget *horizontalLayoutWidget_7;
+    QHBoxLayout *horizontalLayout_45;
+    QLabel *label_134;
+    QLCDNumber *lcdNumber_50;
+    QLabel *label_136;
+    QLabel *label_137;
+    QWidget *horizontalLayoutWidget_8;
+    QHBoxLayout *horizontalLayout_47;
+    QLabel *label_139;
+    QLCDNumber *lcdNumber_52;
     QWidget *tab_4;
+    QLabel *label_138;
+    QWidget *tab_3;
+    QLabel *label_8;
     QStatusBar *statusbar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -654,34 +669,6 @@ public:
 
 
         verticalLayout_6->addLayout(formLayout_19);
-
-        horizontalLayoutWidget_4 = new QWidget(tab);
-        horizontalLayoutWidget_4->setObjectName(QString::fromUtf8("horizontalLayoutWidget_4"));
-        horizontalLayoutWidget_4->setGeometry(QRect(0, 200, 518, 41));
-        horizontalLayout_37 = new QHBoxLayout(horizontalLayoutWidget_4);
-        horizontalLayout_37->setObjectName(QString::fromUtf8("horizontalLayout_37"));
-        horizontalLayout_37->setContentsMargins(0, 0, 0, 0);
-        label_126 = new QLabel(horizontalLayoutWidget_4);
-        label_126->setObjectName(QString::fromUtf8("label_126"));
-        sizePolicy1.setHeightForWidth(label_126->sizePolicy().hasHeightForWidth());
-        label_126->setSizePolicy(sizePolicy1);
-        label_126->setMinimumSize(QSize(355, 39));
-        label_126->setMaximumSize(QSize(355, 39));
-        label_126->setFont(font);
-        label_126->setStyleSheet(QString::fromUtf8("color: black;"));
-
-        horizontalLayout_37->addWidget(label_126);
-
-        lcdNumber_37 = new QLCDNumber(horizontalLayoutWidget_4);
-        lcdNumber_37->setObjectName(QString::fromUtf8("lcdNumber_37"));
-        sizePolicy1.setHeightForWidth(lcdNumber_37->sizePolicy().hasHeightForWidth());
-        lcdNumber_37->setSizePolicy(sizePolicy1);
-        lcdNumber_37->setMinimumSize(QSize(155, 39));
-        lcdNumber_37->setMaximumSize(QSize(155, 39));
-        lcdNumber_37->setStyleSheet(QString::fromUtf8("border: 2px solid black;  color: #008080; font-weight: bold;"));
-        lcdNumber_37->setDigitCount(9);
-
-        horizontalLayout_37->addWidget(lcdNumber_37);
 
         pushButton = new QPushButton(tab);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
@@ -1445,18 +1432,143 @@ public:
         line_51->setLineWidth(0);
         line_51->setFrameShape(QFrame::HLine);
         tabWidget->addTab(tab_2, QString());
-        tab_3 = new QWidget();
-        tab_3->setObjectName(QString::fromUtf8("tab_3"));
-        tabWidget->addTab(tab_3, QString());
+        tab_5 = new QWidget();
+        tab_5->setObjectName(QString::fromUtf8("tab_5"));
+        horizontalLayoutWidget_4 = new QWidget(tab_5);
+        horizontalLayoutWidget_4->setObjectName(QString::fromUtf8("horizontalLayoutWidget_4"));
+        horizontalLayoutWidget_4->setGeometry(QRect(20, 220, 518, 41));
+        horizontalLayout_38 = new QHBoxLayout(horizontalLayoutWidget_4);
+        horizontalLayout_38->setObjectName(QString::fromUtf8("horizontalLayout_38"));
+        horizontalLayout_38->setContentsMargins(0, 0, 0, 0);
+        label_127 = new QLabel(horizontalLayoutWidget_4);
+        label_127->setObjectName(QString::fromUtf8("label_127"));
+        sizePolicy1.setHeightForWidth(label_127->sizePolicy().hasHeightForWidth());
+        label_127->setSizePolicy(sizePolicy1);
+        label_127->setMinimumSize(QSize(355, 39));
+        label_127->setMaximumSize(QSize(355, 39));
+        label_127->setFont(font);
+        label_127->setStyleSheet(QString::fromUtf8("color: black;"));
+
+        horizontalLayout_38->addWidget(label_127);
+
+        lcdNumber_43 = new QLCDNumber(horizontalLayoutWidget_4);
+        lcdNumber_43->setObjectName(QString::fromUtf8("lcdNumber_43"));
+        sizePolicy1.setHeightForWidth(lcdNumber_43->sizePolicy().hasHeightForWidth());
+        lcdNumber_43->setSizePolicy(sizePolicy1);
+        lcdNumber_43->setMinimumSize(QSize(155, 39));
+        lcdNumber_43->setMaximumSize(QSize(155, 39));
+        lcdNumber_43->setStyleSheet(QString::fromUtf8("border: 2px solid black;  color: #008080; font-weight: bold;"));
+        lcdNumber_43->setDigitCount(9);
+
+        horizontalLayout_38->addWidget(lcdNumber_43);
+
+        horizontalLayoutWidget_7 = new QWidget(tab_5);
+        horizontalLayoutWidget_7->setObjectName(QString::fromUtf8("horizontalLayoutWidget_7"));
+        horizontalLayoutWidget_7->setGeometry(QRect(20, 50, 518, 41));
+        horizontalLayout_45 = new QHBoxLayout(horizontalLayoutWidget_7);
+        horizontalLayout_45->setObjectName(QString::fromUtf8("horizontalLayout_45"));
+        horizontalLayout_45->setContentsMargins(0, 0, 0, 0);
+        label_134 = new QLabel(horizontalLayoutWidget_7);
+        label_134->setObjectName(QString::fromUtf8("label_134"));
+        sizePolicy1.setHeightForWidth(label_134->sizePolicy().hasHeightForWidth());
+        label_134->setSizePolicy(sizePolicy1);
+        label_134->setMinimumSize(QSize(355, 39));
+        label_134->setMaximumSize(QSize(355, 39));
+        label_134->setFont(font);
+        label_134->setStyleSheet(QString::fromUtf8("color: black;"));
+
+        horizontalLayout_45->addWidget(label_134);
+
+        lcdNumber_50 = new QLCDNumber(horizontalLayoutWidget_7);
+        lcdNumber_50->setObjectName(QString::fromUtf8("lcdNumber_50"));
+        sizePolicy1.setHeightForWidth(lcdNumber_50->sizePolicy().hasHeightForWidth());
+        lcdNumber_50->setSizePolicy(sizePolicy1);
+        lcdNumber_50->setMinimumSize(QSize(155, 39));
+        lcdNumber_50->setMaximumSize(QSize(155, 39));
+        lcdNumber_50->setStyleSheet(QString::fromUtf8("border: 2px solid black;  color: #008080; font-weight: bold;"));
+        lcdNumber_50->setDigitCount(9);
+
+        horizontalLayout_45->addWidget(lcdNumber_50);
+
+        label_136 = new QLabel(tab_5);
+        label_136->setObjectName(QString::fromUtf8("label_136"));
+        label_136->setGeometry(QRect(20, 10, 200, 30));
+        sizePolicy1.setHeightForWidth(label_136->sizePolicy().hasHeightForWidth());
+        label_136->setSizePolicy(sizePolicy1);
+        label_136->setMinimumSize(QSize(200, 30));
+        label_136->setMaximumSize(QSize(200, 30));
+        label_136->setFont(font1);
+        label_136->setStyleSheet(QString::fromUtf8("color: red; font: bold;"));
+        label_137 = new QLabel(tab_5);
+        label_137->setObjectName(QString::fromUtf8("label_137"));
+        label_137->setGeometry(QRect(20, 180, 200, 30));
+        sizePolicy1.setHeightForWidth(label_137->sizePolicy().hasHeightForWidth());
+        label_137->setSizePolicy(sizePolicy1);
+        label_137->setMinimumSize(QSize(200, 30));
+        label_137->setMaximumSize(QSize(200, 30));
+        label_137->setFont(font1);
+        label_137->setStyleSheet(QString::fromUtf8("color: red; font: bold;"));
+        horizontalLayoutWidget_8 = new QWidget(tab_5);
+        horizontalLayoutWidget_8->setObjectName(QString::fromUtf8("horizontalLayoutWidget_8"));
+        horizontalLayoutWidget_8->setGeometry(QRect(20, 110, 518, 41));
+        horizontalLayout_47 = new QHBoxLayout(horizontalLayoutWidget_8);
+        horizontalLayout_47->setObjectName(QString::fromUtf8("horizontalLayout_47"));
+        horizontalLayout_47->setContentsMargins(0, 0, 0, 0);
+        label_139 = new QLabel(horizontalLayoutWidget_8);
+        label_139->setObjectName(QString::fromUtf8("label_139"));
+        sizePolicy1.setHeightForWidth(label_139->sizePolicy().hasHeightForWidth());
+        label_139->setSizePolicy(sizePolicy1);
+        label_139->setMinimumSize(QSize(355, 39));
+        label_139->setMaximumSize(QSize(355, 39));
+        label_139->setFont(font);
+        label_139->setStyleSheet(QString::fromUtf8("color: black;"));
+
+        horizontalLayout_47->addWidget(label_139);
+
+        lcdNumber_52 = new QLCDNumber(horizontalLayoutWidget_8);
+        lcdNumber_52->setObjectName(QString::fromUtf8("lcdNumber_52"));
+        sizePolicy1.setHeightForWidth(lcdNumber_52->sizePolicy().hasHeightForWidth());
+        lcdNumber_52->setSizePolicy(sizePolicy1);
+        lcdNumber_52->setMinimumSize(QSize(155, 39));
+        lcdNumber_52->setMaximumSize(QSize(155, 39));
+        lcdNumber_52->setStyleSheet(QString::fromUtf8("border: 2px solid black;  color: #008080; font-weight: bold;"));
+        lcdNumber_52->setDigitCount(9);
+
+        horizontalLayout_47->addWidget(lcdNumber_52);
+
+        tabWidget->addTab(tab_5, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QString::fromUtf8("tab_4"));
+        label_138 = new QLabel(tab_4);
+        label_138->setObjectName(QString::fromUtf8("label_138"));
+        label_138->setGeometry(QRect(70, 20, 200, 30));
+        sizePolicy1.setHeightForWidth(label_138->sizePolicy().hasHeightForWidth());
+        label_138->setSizePolicy(sizePolicy1);
+        label_138->setMinimumSize(QSize(200, 30));
+        label_138->setMaximumSize(QSize(200, 30));
+        label_138->setFont(font1);
+        label_138->setStyleSheet(QString::fromUtf8("color: red; font: bold;"));
         tabWidget->addTab(tab_4, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        label_8 = new QLabel(tab_3);
+        label_8->setObjectName(QString::fromUtf8("label_8"));
+        label_8->setGeometry(QRect(20, 10, 700, 730));
+        label_8->setMinimumSize(QSize(700, 730));
+        label_8->setMaximumSize(QSize(700, 730));
+        QFont font3;
+        font3.setFamily(QString::fromUtf8("Sans"));
+        font3.setPointSize(11);
+        font3.setBold(false);
+        font3.setItalic(false);
+        label_8->setFont(font3);
+        label_8->setAlignment(Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop);
+        tabWidget->addTab(tab_3, QString());
         MainWindow->setCentralWidget(centralwidget);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
 
-        
         //QObject::connect(pushButton, &QPushButton::clicked, &validateInputsCaller);
         QObject::connect(pushButton, &QPushButton::clicked, [&]() {
             QList<QPair<QString, QString>> inputList;
@@ -1492,11 +1604,10 @@ public:
     void connectCheckBoxToFunction(QCheckBox *checkBox, void (*function)()) {
         QObject::connect(checkBox, &QCheckBox::clicked, function);
     }
-    
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "NVel", nullptr));
-        label_108->setText(QCoreApplication::translate("MainWindow", "Volume of the Nozzle (Unit: cm^2)", nullptr));
+        label_108->setText(QCoreApplication::translate("MainWindow", "Volume of the Nozzle (Unit: cm^3)", nullptr));
         label->setText(QString());
         label_109->setText(QCoreApplication::translate("MainWindow", "Cross-sectional are of the Nozzle throat (Unit: cm^2)", nullptr));
         label_111->setText(QCoreApplication::translate("MainWindow", "Length of the combustion chamber (Unit: cm)", nullptr));
@@ -1516,7 +1627,6 @@ public:
         checkBox_13->setText(QString());
         label_124->setText(QCoreApplication::translate("MainWindow", "Fill generic values", nullptr));
         label_125->setText(QCoreApplication::translate("MainWindow", "Specific heat (Unit: J/kg-K)", nullptr));
-        label_126->setText(QCoreApplication::translate("MainWindow", "Required mass flow rate (Unit: kg/s)", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "Calculate", nullptr));
         label_2->setText(QString());
         label_107->setText(QCoreApplication::translate("MainWindow", "Nozzle length (Unit: cm)", nullptr));
@@ -1526,17 +1636,51 @@ public:
         label_4->setText(QString());
         label_5->setText(QString());
         label_6->setText(QString());
-        label_128->setText(QCoreApplication::translate("MainWindow", "Cross-sectional are of the combustion chamber (Unit: cm^2)", nullptr));
-        label_129->setText(QCoreApplication::translate("MainWindow", "Cross-sectional area of the nozzle (Unit: cm^2)", nullptr));
+        label_128->setText(QCoreApplication::translate("MainWindow", "Center-plane area of the combustion chamber (Unit: cm^2)", nullptr));
+        label_129->setText(QCoreApplication::translate("MainWindow", "Center-plane area of the nozzle (Unit: cm^2)", nullptr));
         label_130->setText(QCoreApplication::translate("MainWindow", "Wall area of the Combustion chamber (Unit: cm^2)", nullptr));
         label_132->setText(QCoreApplication::translate("MainWindow", "Diameter of the nozzle exit (Unit: cm)", nullptr));
         label_133->setText(QCoreApplication::translate("MainWindow", "Throat diameter (Unit: cm)", nullptr));
         label_131->setText(QCoreApplication::translate("MainWindow", "Wall area of the nozzle (Unit: cm^2)", nullptr));
         label_7->setText(QString());
         label_135->setText(QCoreApplication::translate("MainWindow", "Cross-sectional area of the nozzle exit (Unit: cm^2)", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "More  calculated values", nullptr));
-        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "Guide / about", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_2), QCoreApplication::translate("MainWindow", "Estimations 2", nullptr));
+        label_127->setText(QCoreApplication::translate("MainWindow", "Required mass flow rate (Unit: kg/s)", nullptr));
+        label_134->setText(QCoreApplication::translate("MainWindow", "Specific impulse (Unit: s)", nullptr));
+        label_136->setText(QCoreApplication::translate("MainWindow", "Effiency:", nullptr));
+        label_137->setText(QCoreApplication::translate("MainWindow", "Requirements for operations:", nullptr));
+        label_139->setText(QCoreApplication::translate("MainWindow", "Charasteristic velocity (Unit: m/s)", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_5), QCoreApplication::translate("MainWindow", "Estimations 3", nullptr));
+        label_138->setText(QCoreApplication::translate("MainWindow", "TODO", nullptr));
         tabWidget->setTabText(tabWidget->indexOf(tab_4), QCoreApplication::translate("MainWindow", "Optimise", nullptr));
+        label_8->setText(QCoreApplication::translate("MainWindow", "Welcome, this is calcular to estimate LOX and ethanol-based rocket engine's nozzle\n"
+"and combustion chamber dimensions. Calculator does not yet have optimizing entity,\n"
+"this could mean, for example options for different propellants, assuming certain\n"
+"parameters before-hand etc. \"Estimations 3\"-page should also have more restrains and\n"
+"requirements.\n"
+"\n"
+"Please note it is favorable to have a solid understanding of rocket engines design\n"
+"principles and knowledge of the specific properties of the propellants and\n"
+"combustion process, before using this calculator. To actually produce any starting\n"
+"point value, generalised assumptions have to be made, calcultor also relies on this.\n"
+"Calculation-process for rocket engines can be also stated as 'paradoxal calculation'\n"
+"and typically means many compromises between desired factors. \n"
+"\n"
+"Calculator is highly customizable, generic values, calculation functions etc. are all\n"
+"in one place and usage of different values is explained. Th"
+                        "is is to ensure, that the\n"
+"code is as transparent as possible, allowing users to examine and modify the\n"
+"calculations and also understand how the results were obtained. Transparency is\n"
+"crucial aspect of many processes, in this one, it aims to ensure,that this calculator\n"
+"could be useful tool for someone new to field of liquid rocket engines.\n"
+"\n"
+"Calculations in current structure, assumes geometry of converging nozzle, and bell-\n"
+"design. Calculator is tested with 2500 N, 20 bar chamber pressure and generic\n"
+"propellants values for LOX and ethanol. However, data (for testing) available is\n"
+"diverse, based on different desired outcomes, which further complicates evaluation\n"
+"process. Despite of this, testing with values mentioned, produced reasonable\n"
+"estimations for the most values.", nullptr));
+        tabWidget->setTabText(tabWidget->indexOf(tab_3), QCoreApplication::translate("MainWindow", "Guide / about", nullptr));
     } // retranslateUi
 
 };
@@ -1547,4 +1691,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // VER1GUI_H
+#endif // VE2_H

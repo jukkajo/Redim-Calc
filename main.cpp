@@ -42,96 +42,176 @@ Ui_MainWindow *ui;
 
 /* TODO:
 Optimization entity
-Multiply all area relared values, as those displayed as m^2, but displayed as cm^2
-Same with m^3 to cm^3
 */
 
 void calculate(double& crossSectionalAreaF, double& chamberLengthF, double& nozzleLengthF, double& nozzleThroatAreaF, double& nozzleExitAreaF, double& massFlowRateF, int& thrustF, int& chamberPressureF, float& loxDensityF, double& loxSpecificHeatF, int& loxBurningTempF, float& ethanolDensityF, double& ethanolSpecificHeatF, int& ethanolBurningTempF) {
-    
-    // For sake of convenience, datatypes to float. However, for example, it is reasonable to thrusth from user as int, same with Kelvins
-    double loxDensityFDouble = loxDensityF;
-    double ethanolDensityFDouble = ethanolDensityF;
-    double loxBurningTempFDouble = loxBurningTempF;
-    double ethanolBurningTempFDouble = ethanolBurningTempF;
-    double thrustFDouble = thrustF;
-    double chamberPressureFDouble = chamberPressureF;
-    
-    double rho = calculateCPDensity(P_chamber, A_Flame);
-    double A_Flame = calculateAFlame(loxBurningTempFDouble, loxSpecificHeatF, ethanolBurningTempFDouble, ethanolSpecificHeatF);
-    double gamma = calculateGamma(loxSpecificHeatF, ethanolSpecificHeatF);
-    double P_exit = estimateNEPressure(chamberPressureFDouble, gamma); 
-    double R_mix = calculateGasConstant(Lox_ethanol_ratio);
-    double V_t = calculateTVelocity(R_mix, A_Flame, P_exit, gamma, chamberPressureFDouble);
 
+    double loxDensityFDouble = loxDensityF;
+    std::cout << "loxDensityFDouble: " << loxDensityFDouble << std::endl;
+
+    double ethanolDensityFDouble = ethanolDensityF;
+    std::cout << "ethanolDensityFDouble: " << ethanolDensityFDouble << std::endl;
+
+    double loxBurningTempFDouble = loxBurningTempF;
+    std::cout << "loxBurningTempFDouble: " << loxBurningTempFDouble << std::endl;
+
+    double ethanolBurningTempFDouble = ethanolBurningTempF;
+    std::cout << "ethanolBurningTempFDouble: " << ethanolBurningTempFDouble << std::endl;
+
+    double thrustFDouble = thrustF;
+    std::cout << "thrustFDouble: " << thrustFDouble << std::endl;
+
+    double chamberPressureFDouble = chamberPressureF * 100000.0;
+    std::cout << "chamberPressureFDouble: " << chamberPressureFDouble << std::endl;
+
+    double A_Flame = adiabaticFlameTemperature(loxSpecificHeatF, ethanolSpecificHeatF);
+    std::cout << "A_Flame: " << A_Flame << std::endl; 
+
+    double rho = calculateCPDensity(chamberPressureFDouble, A_Flame);
+    std::cout << "rho: " << rho << std::endl;
+
+    double gamma = calculateGamma(loxSpecificHeatF, ethanolSpecificHeatF); 
+    std::cout << "gamma: " << gamma << std::endl;
+    
+    double P_exit = estimateNEPressure(chamberPressureFDouble, gamma, N_a_r, true);
+    std::cout << "P_exit: " << P_exit << std::endl;
+
+    double R_mix = calculateGasConstant(Lox_ethanol_ratio);
+    std::cout << "R_mix: " << R_mix << std::endl;
+
+    double V_t = calculateTVelocity(R_mix, A_Flame, P_exit, gamma, chamberPressureFDouble);
+    std::cout << "V_t: " << V_t << std::endl;
 
     // Lox_ethanol_ratio from genericvalues
     double G_c= calculateGasConstant(Lox_ethanol_ratio);
+    std::cout << "G_c: " << G_c << std::endl;
+
     double C_e_v = calculateEVelocity(A_Flame, gamma, G_c, chamberPressureFDouble);
-    double A_t = calculateNTArea(M_f_r, rho, V_t);
-    double C_vel = estimateCVelocity(A_t, chamberPressureFDouble, M_f_r, R_mix, A_Flame, gamma);
-    double V_chamber = calculateVCChamber(chamberPressureFDouble, thrustFDouble, C_vel);
-    double D_c = estimateCSDiameter(V_chamber, chamberPressureFDouble, R_mix, C_e_v, A_Flame, thrustFDouble);
-    double L_c = calculateCSLength(V_chamber, D_c);
+    std::cout << "C_e_v: " << C_e_v << std::endl;
+
+    massFlowRateF = calculateMFRate(thrustFDouble, C_e_v);
+    std::cout << "massFlowRateF: " << massFlowRateF << std::endl;
+
     double A_e = calculateNEArea(thrustFDouble, chamberPressureFDouble, C_e_v);
-    double L_n = calculateNLength(A_e, A_t, R_mix, A_Flame, gamma, chamberPressureFDouble, V_t);
-    double V_n = calculateVNozzle(A_t, A_e, L_n);
+    std::cout << "A_e: " << A_e << std::endl;
 
-    //TODO:
-    // Replace first A_Flame parameter with more accurate chamber temperature
-    //double B_p = calculateBPressure(chamberPressureFDouble, T_chamber, A_Flame, C_p_oxygen, C_p_ethanol);
+    double A_t = calculateNTArea(A_e);
+    std::cout << "A_t: " << A_t << std::endl;
+
     double B_p = calculateBPressure(chamberPressureFDouble, A_Flame, A_Flame, loxSpecificHeatF, ethanolSpecificHeatF);
+    std::cout << "B_p: " << B_p << std::endl;
 
-    // Generating values via calctools
-    crossSectionalAreaF = calculateCSArea(V_chamber, L_c);
-    //chamberLengthF = ; 
-    nozzleLengthF = calculateNLength(A_e, A_t, R_mix, A_Flame, gamma, P_c, V_t);
-    nozzleThroatAreaF = ; 
-    nozzleExitAreaF = ;
-    massFlowRateF = calculateMFRate(thrustF, C_e_v, B_p, A_t, chamberPressureFDouble);
+    double C_vel = calculateCVel(A_t, chamberPressureFDouble, massFlowRateF, A_Flame);  
+    std::cout << "C_vel: " << C_vel << std::endl;
 
-    // Volume of the Nozzle (Unit: cm^3)
-    ui->lcdNumber_39->display(V_n);
+    double A_c = calculateCSArea(A_t);
+    std::cout << "A_c: " << A_c << std::endl; 
     
-    // Cross-sectional are of the Nozzle throat (Unit: cm^2)
-    ui->lcdNumber_40->display(A_t);
+    double V_chamber = calculateVCChamber(C_vel, chamberPressureFDouble, C_vel);
+    std::cout << "V_chamber: " << V_chamber << std::endl;
+    
+    double temp = (A_t * Conv_1k);
+    double D_n_t = calculateNDiameter(temp);
+    std::cout << "D_n_t: " << D_n_t << std::endl;
+
+    double D_c = estimateCSDiameter(D_n_t);
+    std::cout << "D_c: " << D_c << std::endl;
+
+    double L_c = calculateCSLength(D_c, C_vel);
+    std::cout << "L_c: " << L_c << std::endl;
+
+    double L_n = calculateNLength(D_n_t);
+    std::cout << "L_n: " << L_n << std::endl;
+
+    double V_n = calculateVNozzle(A_t, A_e, L_n);
+    std::cout << "V_n: " << V_n << std::endl;
+
+    double A_n_c_p = calculateNCPArea(A_t, A_e, L_n);
+    std::cout << "A_n_c_p: " << A_n_c_p << std::endl;
+
+    double R_f = calculateFRad(D_c);
+    std::cout << "R_f: " << R_f << std::endl;
+
+    double R_c = calculateCCRad(D_c, A_t, R_f);
+    std::cout << "R_c: " << R_c << std::endl;
+
+    double CC_t_w_a = calculateCWArea(V_chamber, L_c, R_c, A_t, R_f);
+    std::cout << "CC_t_w_a: " << CC_t_w_a << std::endl;
+
+    double D_n_e = calculateNDiameter(A_e);
+    std::cout << "D_n_e: " << D_n_e << std::endl;
+
+    double R_n_t = D_n_t / 2;
+    std::cout << "R_n_t: " << R_n_t << std::endl;
+
+    double R_n_e = D_n_e / 2;
+    std::cout << "R_n_e: " << R_n_e << std::endl;
+
+    double theta = calculateDHAngle(R_n_e, R_n_t, L_n);
+    std::cout << "theta: " << theta << std::endl;
+    
+    double H_d_s = calculateDHeight(L_n, theta);
+    std::cout << "H_d_s: " << H_d_s << std::endl;
+    
+    double A_n_w = calculateNWArea(R_n_t, R_n_e, H_d_s, L_n);
+    std::cout << "A_n_w: " << A_n_w << std::endl;
+    
+    double Isp = calculateISP(thrustFDouble, massFlowRateF);
+    std::cout << "Isp: " << Isp << std::endl;
+    
+    // TODO: Ask from user in gui, implement like so: ui->lcdNumber_39->display(QString::number(V_n, 'f', decimalCut));
+    int decimalCut = 3;
+    
+    
+    /* Here values are updated to gui. Unit-conversions are done at this phase,
+    for sake of simplicity, because equations and units are in relation in calculation 
+    entity.
+    */ 
+    
+    // Volume of the Nozzle (Unit: cm^3)
+    ui->lcdNumber_39->display(QString::number((V_n * Conv_to_cm3 * Conv_10k), 'f', decimalCut));
+    
+    // Cross-sectional area of the Nozzle throat (Unit: cm^2)
+    ui->lcdNumber_40->display(QString::number((A_t * Conv_to_cm2 * Conv_1k), 'f', decimalCut));
     
     // Volume of the combustion chamber (Unit: cm^3)
-    ui->lcdNumber_38->display(newValue);
+    ui->lcdNumber_38->display(QString::number((V_chamber * Conv_1k), 'f', decimalCut));
     
     // Length of the combustion chamber (Unit: cm)
-    ui->lcdNumber_42->display(L_c);
+    ui->lcdNumber_42->display(QString::number((L_c / Conv_100 * R_factor), 'f', decimalCut));
     
     // Nozzle length (Unit: cm)
-    ui->lcdNumber_41->display(nozzleLengthF);
+    ui->lcdNumber_41->display(QString::number((L_n * Conv_100), 'f', decimalCut));
     
-    // Cross-sectional are of the combustion chamber (Unit: cm^2)
-    double C4 = 
-    ui->lcdNumber_44->display(newValue);
+    // Center-plane area of the combustion chamber (Unit: cm^2)
+    ui->lcdNumber_44->display(QString::number((A_c * Conv_1m) * Conv_100, 'f', decimalCut));
     
-    // Cross-sectional area of the nozzle (Unit: cm^2)
-    double C5 = 
-    ui->lcdNumber_45->display(newValue);
+    // Center-plane area of the nozzle (Unit: cm^2)
+    ui->lcdNumber_45->display(QString::number((A_n_c_p * Conv_1m * Conv_100), 'f', decimalCut));
     
     // Wall area of the Combustion chamber (Unit: cm^2)
-    double C6 = 
-    ui->lcdNumber_46->display(newValue);
+    ui->lcdNumber_46->display(QString::number((CC_t_w_a / Conv_1m / Conv_100), 'f', decimalCut));
     
     // Diameter of the nozzle exit (Unit: cm)
-    ui->lcdNumber_48->display(newValue);
+    ui->lcdNumber_48->display(QString::number((D_n_e * Conv_10k), 'f', decimalCut));
     
     // Throat diameter (Unit: cm)
-    ui->lcdNumber_49->display(newValue);
+    ui->lcdNumber_49->display(QString::number((D_n_t * Conv_to_cm), 'f', decimalCut));
     
     // Wall area of the nozzle (Unit: cm^2)
-    double C7 = 
-    ui->lcdNumber_47->display(newValue);
+    ui->lcdNumber_47->display(QString::number((A_n_w * Conv_to_cm2), 'f', decimalCut));
     
-    // Required mass flow rate (Unit: kg/s)
-    ui->lcdNumber_37->display(massFlowRateF);
+    // Massflowrate (Unit: kg/s)
+    ui->lcdNumber_43->display(QString::number(massFlowRateF, 'f', decimalCut));
     
-    // Cross-sectional area of the nozzle exit (Unit: cm^2)
-    double C5 = 
-    ui->lcdNumber_45->display(newValue);
+    // Cross-sectional area of the nozzle exit (Unit: cm^2) 
+    ui->lcdNumber_51->display(QString::number((A_e * Conv_1m * Conv_100), 'f', decimalCut));
+    
+    // Specific impulse (Unit: s) 
+    ui->lcdNumber_50->display(QString::number(Isp, 'f', decimalCut));
+
+    // Charasteristic velocity (Unit: m/s) 
+    ui->lcdNumber_52->display(QString::number(C_vel, 'f', decimalCut));
 }
 
 
@@ -345,21 +425,8 @@ void fillGenericValues2() {
     ui->lineEdit_51->setText(Ethanol_properties.at(3)); // Burning temperature
 }
 
-
-//TODO: Delete this
-void validateInputsCaller(QList<QPair<QString, QString>> inputList) {
-    //qDebug() << "Debug message";
-    // Loop through the inputList and validate each value
-    /*
-    for (auto input : inputList) {
-        QString name = input.first;
-        QString value = input.second;
-        //validateInput(name, value);
-        std::cout << name.toStdString() << value.toStdString() << std::endl;
-
-    }
-    */
-    
+//TODO: Connect calculate-button straight to validateInputs?
+void validateInputsCaller(QList<QPair<QString, QString>> inputList) {    
     validateInputs(inputList, crossSectionalAreaF, chamberLengthF, nozzleLengthF, nozzleThroatAreaF, nozzleExitAreaF, massFlowRateF, thrustF, chamberPressureF, loxDensityF, loxSpecificHeatF, loxBurningTempF, ethanolDensityF, ethanolSpecificHeatF, ethanolBurningTempF);
 }
 
